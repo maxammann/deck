@@ -17,7 +17,7 @@
 - 🚀 Get your project organized
 
 </description>
-    <version>1.2.2</version>
+    <version>1.3.0-beta2</version>
     <licence>agpl</licence>
     <author>Julius Härtl</author>
     <namespace>Deck</namespace>
@@ -32,22 +32,17 @@
     <screenshot>https://download.bitgrid.net/nextcloud/deck/screenshots/1.0/Deck-1.png</screenshot>
     <screenshot>https://download.bitgrid.net/nextcloud/deck/screenshots/1.0/Deck-2.png</screenshot>
     <dependencies>
-        <php min-version="5.6"/>
+        <php min-version="7.3"/>
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
         <database min-version="5.5">mysql</database>
-        <nextcloud min-version="18" max-version="21" />
+        <nextcloud min-version="21" max-version="21" />
     </dependencies>
     <background-jobs>
         <job>OCA\Deck\Cron\DeleteCron</job>
         <job>OCA\Deck\Cron\ScheduledNotifications</job>
         <job>OCA\Deck\Cron\CardDescriptionActivity</job>
     </background-jobs>
-    <repair-steps>
-        <post-migration>
-            <step>OCA\Deck\Migration\UnknownUsers</step>
-        </post-migration>
-    </repair-steps>
     <commands>
         <command>OCA\Deck\Command\UserExport</command>
     </commands>

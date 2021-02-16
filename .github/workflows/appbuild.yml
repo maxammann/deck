@@ -1,12 +1,11 @@
-name: Build app package
+name: Package build
 
 on:
   pull_request:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     strategy:
       matrix:

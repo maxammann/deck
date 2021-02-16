@@ -170,7 +170,7 @@
 					</template>
 				</Popover>
 
-				<Actions :style="archivedOpacity">
+				<Actions>
 					<ActionButton
 						icon="icon-archive"
 						@click="toggleShowArchived">
@@ -242,12 +242,6 @@ export default {
 			return {
 				name: 'board.details',
 			}
-		},
-		archivedOpacity() {
-			if (this.showArchived) {
-				return 'opacity: 1;'
-			}
-			return 'opacity: .5;'
 		},
 		isFilterActive() {
 			if (this.filter.tags.length !== 0 || this.filter.users.length !== 0 || this.filter.due !== '') {

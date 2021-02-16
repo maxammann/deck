@@ -29,9 +29,16 @@ namespace OCA\Deck\Listeners;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\IRequest;
 use OCP\Util;
 
 class BeforeTemplateRenderedListener implements IEventListener {
+	private $request;
+
+	public function __construct(IRequest $request) {
+		$this->request = $request;
+	}
+
 	public function handle(Event $event): void {
 		if (!($event instanceof BeforeTemplateRenderedEvent)) {
 			return;
@@ -41,5 +48,9 @@ class BeforeTemplateRenderedListener implements IEventListener {
 			return;
 		}
 		Util::addStyle('deck', 'deck');
+
+		if (strpos($this->request->getPathInfo(), '/apps/calendar') === 0) {
+			Util::addScript('deck', 'calendar');
+		}
 	}
 }

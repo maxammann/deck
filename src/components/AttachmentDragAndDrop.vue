@@ -109,13 +109,14 @@ export default {
 	},
 	methods: {
 		handleDropFiles(event) {
+			event.dataTransfer.dropEffect = 'copy'
 			this.isDraggingOver = false
 			if (this.isReadOnly) {
 				return
 			}
 			const files = event.dataTransfer.files
 			for (const file of files) {
-				this.onLocalAttachmentSelected(file)
+				this.onLocalAttachmentSelected(file, 'file')
 			}
 			event.dataTransfer.value = ''
 		},

@@ -6,6 +6,7 @@ const config = {
 	entry: {
 		collections: path.join(__dirname, 'src', 'init-collections.js'),
 		dashboard: path.join(__dirname, 'src', 'init-dashboard.js'),
+		calendar: path.join(__dirname, 'src', 'init-calendar.js'),
 	},
 	output: {
 		filename: '[name].js',
@@ -19,6 +20,13 @@ const config = {
 			'node_modules',
 		],
 	},
+	stats: {
+		context: path.resolve(__dirname, 'src'),
+		assets: true,
+		entrypoints: true,
+		chunks: true,
+		modules: true
+	}
 }
 
 module.exports = merge(webpackConfig, config)
