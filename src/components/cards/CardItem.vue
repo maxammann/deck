@@ -31,6 +31,7 @@
 			class="card"
 			@click="openCard">
 			<div class="card-upper">
+				{{ attachments }}
 				<h3 v-if="compactMode || isArchived || showArchived || !canEdit">
 					{{ card.title }}
 				</h3>
@@ -113,7 +114,11 @@ export default {
 		}),
 		...mapGetters([
 			'isArchived',
+
 		]),
+		attachments() {
+			return [...this.$store.getters.attachmentsByCard(this.currentCard.id)].filter(attachment => attachment.deletedAt >= 0)
+		},
 		canEdit() {
 			if (this.currentBoard) {
 				return !this.currentBoard.archived && this.$store.getters.canEdit
