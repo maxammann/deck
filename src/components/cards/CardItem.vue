@@ -30,8 +30,10 @@
 			tag="div"
 			class="card"
 			@click="openCard">
+			<div class="imageCover">
+				<a class="fileicon" :style="mimetypeForAttachment(attachments[0])" />
+			</div>
 			<div class="card-upper">
-				{{ attachments }}
 				<h3 v-if="compactMode || isArchived || showArchived || !canEdit">
 					{{ card.title }}
 				</h3>
@@ -82,6 +84,7 @@ import labelStyle from '../../mixins/labelStyle'
 import AttachmentDragAndDrop from '../AttachmentDragAndDrop'
 import CardMenu from './CardMenu'
 import DueDate from './badges/DueDate'
+import { generateUrl } from '@nextcloud/router'
 
 export default {
 	name: 'CardItem',
@@ -117,7 +120,7 @@ export default {
 
 		]),
 		attachments() {
-			return [...this.$store.getters.attachmentsByCard(this.currentCard.id)].filter(attachment => attachment.deletedAt >= 0)
+			return [...this.$store.getters.attachmentsByCard(this.id)].filter(attachment => attachment.deletedAt >= 0)
 		},
 		canEdit() {
 			if (this.currentBoard) {
@@ -134,6 +137,21 @@ export default {
 		},
 		labelsSorted() {
 			return [...this.card.labels].sort((a, b) => (a.title < b.title) ? -1 : 1)
+		},
+		mimetypeForAttachment() {
+			return (attachment) => {
+				if (!attachment) {
+					return {}
+				}
+				const url = attachment.extendedData.hasPreview ? this.attachmentPreview(attachment) : OC.MimeType.getIconUrl(attachment.extendedData.mimetype)
+				const styles = {
+					'background-image': `url("${url}")`,
+				}
+				return styles
+			}
+		},
+		attachmentPreview() {
+			return (attachment) => (attachment.extendedData.fileid ? generateUrl(`/core/preview?fileId=${attachment.extendedData.fileid}&x=260&y=260&a=true`) : null)
 		},
 	},
 	watch: {
@@ -193,6 +211,17 @@ export default {
 		}
 		&.current-card {
 			box-shadow: 0 0 5px 1px var(--color-box-shadow);
+		}
+
+		.fileicon {
+			display: flex;
+			width: 260px;
+			height: 260px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			margin-left: auto;
+			margin-right: auto;
+			border-radius: var(--border-radius-large);
 		}
 
 		.card-upper {
