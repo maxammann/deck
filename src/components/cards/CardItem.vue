@@ -30,7 +30,7 @@
 			tag="div"
 			class="card"
 			@click="openCard">
-			<div class="imageCover">
+			<div class="imageCover" v-if="currentBoard.coverImages">
 				<a class="fileicon" :style="mimetypeForAttachment(attachments[0])" />
 			</div>
 			<div class="card-upper">
