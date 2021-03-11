@@ -26,11 +26,11 @@
 			<div class="board-bullet icon-calendar-dark" />
 			<h2>{{ overviewName }}</h2>
 			<Actions>
-				<ActionButton icon="icon-add" @click="toggleAddCardModel" @close="toggleAddCardModel">
+				<ActionButton icon="icon-add" @click="toggleAddCardModel">
 					{{ t('deck', 'Add card') }}
 				</ActionButton>
 			</Actions>
-			<CardCreateDialog v-if="showAddCardModal" />
+			<CardCreateDialog v-if="showAddCardModal" @close="toggleAddCardModel" />
 		</div>
 		<div v-else-if="board" class="board-title">
 			<div :style="{backgroundColor: '#' + board.color}" class="board-bullet" />
